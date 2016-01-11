@@ -12,7 +12,7 @@ import java.util.Map;
 public final class TaskList implements Runnable {
     private static final String QUIT = "quit";
 
-    private final Map<String, List<Task>> tasks = new LinkedHashMap<>();
+    private final ArrayList<Projet> projects = new ArrayList<>();
     private final BufferedReader in;
     private final PrintWriter out;
 
@@ -72,9 +72,9 @@ public final class TaskList implements Runnable {
     }
 
     private void show() {
-        for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {
-            out.println(project.getKey());
-            for (Task task : project.getValue()) {
+        for (Projet projet : projects) {
+            out.println(projet.getName());
+            for (Task task : projet.getTasks()) {
                 out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId(), task.getDescription());
             }
             out.println();
@@ -93,17 +93,22 @@ public final class TaskList implements Runnable {
     }
 
     private void addProject(String name) {
-        tasks.put(name, new ArrayList<Task>());
+        projects.add(new Projet(name));
     }
 
     private void addTask(String project, String description) {
-        List<Task> projectTasks = tasks.get(project);
-        if (projectTasks == null) {
-            out.printf("Could not find a project with the name \"%s\".", project);
+    	Projet temp = null;
+    	for (Projet projet : projects) {
+    		if (projet.getName().equals(project)) {
+    			temp = projet;
+    		}
+    	}
+    	if (temp == null) {
+    		out.printf("Could not find a project with the name \"%s\".", project);
             out.println();
             return;
-        }
-        projectTasks.add(new Task(nextId(), description, false));
+    	}
+    	temp.addTask(new Task(nextId(), description, false));
     }
 
     private void check(String idString) {
@@ -116,8 +121,8 @@ public final class TaskList implements Runnable {
 
     private void setDone(String idString, boolean done) {
         int id = Integer.parseInt(idString);
-        for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {
-            for (Task task : project.getValue()) {
+        for (Projet projet : projects) {
+            for (Task task : projet.getTasks()) {
                 if (task.getId() == id) {
                     task.setDone(done);
                     return;
