@@ -4,10 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Date;
 
 public final class TaskList implements Runnable {
     private static final String QUIT = "quit";
@@ -68,6 +68,9 @@ public final class TaskList implements Runnable {
             case "help":
                 help();
                 break;
+            case "deadline":
+            	deadline(commandRest[1]);
+            	break;
             default:
                 error(command);
                 break;
@@ -155,6 +158,31 @@ public final class TaskList implements Runnable {
         out.println("  delete <task ID>");
         out.println("  check <task ID>");
         out.println("  uncheck <task ID>");
+        out.println("  deadline <ID> <date> (dd/MM/yyyy");
+        out.println();
+    }
+    
+    private void deadline(String commandLine) {
+    	String[] subCommandRest = commandLine.split(" ", 2);
+    	int id = Integer.parseInt(subCommandRest[0]);
+        for (Projet projet : projects) {
+            for (Task task : projet.getTasks()) {
+                if (task.getId() == id) {
+                	Date temp = null;
+                	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+					try {
+						temp = sdf.parse(subCommandRest[1]);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                    task.setDeadline(temp);
+                    //out.println(sdf.format(task.getDeadline()));
+                    return;
+                }
+            }
+        }
+        out.printf("Could not find a task with an ID of %d.", id);
         out.println();
     }
 
