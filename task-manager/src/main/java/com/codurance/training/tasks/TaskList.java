@@ -56,6 +56,9 @@ public final class TaskList implements Runnable {
             case "add":
                 add(commandRest[1]);
                 break;
+            case "delete":
+                deleteTask(Integer.parseInt(commandRest[1]));
+                break;
             case "check":
                 check(commandRest[1]);
                 break;
@@ -110,6 +113,17 @@ public final class TaskList implements Runnable {
     	}
     	temp.addTask(new Task(nextId(), description, false));
     }
+    
+    private void deleteTask(int id) {
+    	for (Projet projet : projects) {
+    		for (Task task : projet.getTasks()) {
+                if (task.getId() == id) {
+                    projet.deleteTask(task);
+                    return;
+                }
+            }
+    	}
+    }
 
     private void check(String idString) {
         setDone(idString, true);
@@ -138,6 +152,7 @@ public final class TaskList implements Runnable {
         out.println("  show");
         out.println("  add project <project name>");
         out.println("  add task <project name> <task description>");
+        out.println("  delete <task ID>");
         out.println("  check <task ID>");
         out.println("  uncheck <task ID>");
         out.println();

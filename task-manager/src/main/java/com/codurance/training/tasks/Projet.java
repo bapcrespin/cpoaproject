@@ -23,4 +23,8 @@ public final class Projet {
 		tasks.add(tache);
 	}
 	
+	public void deleteTask(Task task){
+		tasks.remove(task);
+	}
+	
 }
