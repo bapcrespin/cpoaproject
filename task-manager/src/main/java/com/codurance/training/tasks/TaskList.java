@@ -74,6 +74,12 @@ public final class TaskList implements Runnable {
             case "today":
             	today();
             	break;
+            case "viewByDate":
+            	viewByDate();
+            	break;
+            case "viewByDeadline":
+            	viewByDeadline();
+            	break;
             default:
                 error(command);
                 break;
@@ -162,6 +168,9 @@ public final class TaskList implements Runnable {
         out.println("  check <task ID>");
         out.println("  uncheck <task ID>");
         out.println("  deadline <ID> <date> (dd/MM/yyyy");
+        out.println("  today");
+        out.println("  viewByDate");
+        out.println("  viewByDeadline");
         out.println();
     }
     
@@ -193,16 +202,32 @@ public final class TaskList implements Runnable {
     	Date today = new Date();
     	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     	String temp = sdf.format(today);
+    	String temp2;
     	for (Projet projet : projects) {
             out.println(projet.getName());
+            int cpt = 0 ;
             for (Task task : projet.getTasks()) {
-            	String temp2 = sdf.format(task.getDeadline());
-            	if (temp.equals(temp2)){
-            		out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId(), task.getDescription());
+            	if (task.getDeadline() != null) {
+            		temp2 = sdf.format(task.getDeadline());
+            		if (temp.equals(temp2)){
+            			out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId(), task.getDescription());
+            			cpt ++ ;
+            		}
             	}
+            }
+            if (cpt == 0) {
+            	out.print("    Pas de tâche à finir aujourd'hui pour ce projet.");
             }
             out.println();
         }
+    }
+    
+    private void viewByDate () {
+    	
+    }
+    
+    private void viewByDeadline () {
+    	
     }
 
     private void error(String command) {
