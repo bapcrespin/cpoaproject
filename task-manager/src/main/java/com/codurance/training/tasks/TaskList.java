@@ -71,6 +71,9 @@ public final class TaskList implements Runnable {
             case "deadline":
             	deadline(commandRest[1]);
             	break;
+            case "today":
+            	today();
+            	break;
             default:
                 error(command);
                 break;
@@ -184,6 +187,22 @@ public final class TaskList implements Runnable {
         }
         out.printf("Could not find a task with an ID of %d.", id);
         out.println();
+    }
+    
+    private void today () {
+    	Date today = new Date();
+    	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    	String temp = sdf.format(today);
+    	for (Projet projet : projects) {
+            out.println(projet.getName());
+            for (Task task : projet.getTasks()) {
+            	String temp2 = sdf.format(task.getDeadline());
+            	if (temp.equals(temp2)){
+            		out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId(), task.getDescription());
+            	}
+            }
+            out.println();
+        }
     }
 
     private void error(String command) {
