@@ -9,22 +9,24 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public final class TaskList implements Runnable {
+public final class Application implements Runnable {
     private static final String QUIT = "quit";
 
     private final ArrayList<Projet> projects = new ArrayList<>();
     private final BufferedReader in;
     private final PrintWriter out;
+    
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     private long lastId = 0;
 
     public static void main(String[] args) throws Exception {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(System.out);
-        new TaskList(in, out).run();
+        new Application(in, out).run();
     }
 
-    public TaskList(BufferedReader reader, PrintWriter writer) {
+    public Application(BufferedReader reader, PrintWriter writer) {
         this.in = reader;
         this.out = writer;
     }
@@ -181,7 +183,6 @@ public final class TaskList implements Runnable {
             for (Task task : projet.getTasks()) {
                 if (task.getId() == id) {
                 	Date temp = null;
-                	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 					try {
 						temp = sdf.parse(subCommandRest[1]);
 					} catch (ParseException e) {
@@ -200,7 +201,6 @@ public final class TaskList implements Runnable {
     
     private void today () {
     	Date today = new Date();
-    	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     	String temp = sdf.format(today);
     	String temp2;
     	for (Projet projet : projects) {
@@ -223,7 +223,6 @@ public final class TaskList implements Runnable {
     }
     
     private void viewByDate () {
-    	
     }
     
     private void viewByDeadline () {
