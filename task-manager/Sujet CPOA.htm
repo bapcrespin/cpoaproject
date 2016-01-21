@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<meta name="author" content="Jean-Michel Bruel">
+<title>DUT-Info/S3/M3105 (CPOA) : Projet refactoring</title>
+<link rel="stylesheet" href="Sujet%20CPOA_fichiers/css.css">
+<style>
+/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+/* Remove comment around @import statement below when using as a custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
+audio,canvas,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+[hidden],template{display:none}
+script{display:none!important}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+body{margin:0}
+a{background:transparent}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}
+input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*:before,*:after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+body{-webkit-font-smoothing:antialiased}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.center{margin-left:auto;margin-right:auto}
+.spread{width:100%}
+p.lead,.paragraph.lead>p,#preamble>.sectionbody>.paragraph:first-of-type p{font-size:1.21875em;line-height:1.6}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:none}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #ddddd8;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol,ul.no-bullet,ol.no-bullet{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ul.no-bullet{list-style:none}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite:before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media only screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7;font-weight:bold}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt,table tr:nth-of-type(even){background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+body{tab-size:4}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix:before,.clearfix:after,.float-group:before,.float-group:after{content:" ";display:table}
+.clearfix:after,.float-group:after{clear:both}
+*:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre,pre>code{line-height:1.45;color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;text-rendering:optimizeSpeed}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menu{color:rgba(0,0,0,.8)}
+b.button:before,b.button:after{position:relative;top:-1px;font-weight:400}
+b.button:before{content:"[";padding:0 3px 0 2px}
+b.button:after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header:before,#header:after,#content:before,#content:after,#footnotes:before,#footnotes:after,#footer:before,#footer:after{content:" ";display:table}
+#header:after,#content:after,#footnotes:after,#footer:after{clear:both}
+#content{margin-top:1.25em}
+#content:before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #ddddd8}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #ddddd8;padding-bottom:8px}
+#header .details{border-bottom:1px solid #ddddd8;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span:before{content:"\00a0\2013\00a0"}
+#header .details br+span.author:before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark:before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber:after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #ddddd8;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #efefed;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media only screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #efefed;left:auto;right:0}}
+@media only screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background-color:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+.sect1{padding-bottom:.625em}
+@media only screen and (min-width:768px){.sect1{padding-bottom:1.25em}}
+.sect1+.sect1{border-top:1px solid #efefed}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor:before,h2>a.anchor:before,h3>a.anchor:before,#toctitle>a.anchor:before,.sidebarblock>.content>.title>a.anchor:before,h4>a.anchor:before,h5>a.anchor:before,h6>a.anchor:before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock>caption.title{white-space:nowrap;overflow:visible;max-width:0}
+.paragraph.lead>p,#preamble>.sectionbody>.paragraph:first-of-type p{color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock pre:not(.highlight),.listingblock pre[class="highlight"],.listingblock pre[class^="highlight "],.listingblock pre.CodeRay,.listingblock pre.prettyprint{background:#f7f7f8}
+.sidebarblock .literalblock pre,.sidebarblock .listingblock pre:not(.highlight),.sidebarblock .listingblock pre[class="highlight"],.sidebarblock .listingblock pre[class^="highlight "],.sidebarblock .listingblock pre.CodeRay,.sidebarblock .listingblock pre.prettyprint{background:#f2f1f1}
+.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;padding:1em;font-size:.8125em}
+.literalblock pre.nowrap,.literalblock pre[class].nowrap,.listingblock pre.nowrap,.listingblock pre[class].nowrap{overflow-x:auto;white-space:pre;word-wrap:normal}
+@media only screen and (min-width:768px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:.90625em}}
+@media only screen and (min-width:1280px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:1em}}
+.literalblock.output pre{color:#f7f7f8;background-color:rgba(0,0,0,.9)}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]:before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:#999}
+.listingblock:hover code[data-lang]:before{display:block}
+.listingblock.terminal pre .command:before{content:attr(data-prompt);padding-right:.5em;color:#999}
+.listingblock.terminal pre .command:not([data-prompt]):before{content:"$"}
+table.pyhltable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.pyhltable td{vertical-align:top;padding-top:0;padding-bottom:0;line-height:1.45}
+table.pyhltable td.code{padding-left:.75em;padding-right:0}
+pre.pygments .lineno,table.pyhltable td:not(.code){color:#999;padding-left:0;padding-right:.5em;border-right:1px solid #ddddd8}
+pre.pygments .lineno{display:inline-block;margin-right:.25em}
+table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock blockquote p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote:before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.5em;margin-right:.5ex;text-align:right}
+.quoteblock .quoteblock{margin-left:0;margin-right:0;padding:.5em 0;border-left:3px solid rgba(0,0,0,.6)}
+.quoteblock .quoteblock blockquote{padding:0 0 0 .75em}
+.quoteblock .quoteblock blockquote:before{display:none}
+.verseblock{margin:0 1em 1.25em 1em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract{margin:0 0 1.25em 0;display:block}
+.quoteblock.abstract blockquote,.quoteblock.abstract blockquote p{text-align:left;word-spacing:0}
+.quoteblock.abstract blockquote:before,.quoteblock.abstract blockquote p:first-of-type:before{display:none}
+table.tableblock{max-width:100%;border-collapse:separate}
+table.tableblock td>.paragraph:last-child p>p:last-child,table.tableblock th>p:last-child,table.tableblock td>p:last-child{margin-bottom:0}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all th.tableblock,table.grid-all td.tableblock{border-width:0 1px 1px 0}
+table.grid-all tfoot>tr>th.tableblock,table.grid-all tfoot>tr>td.tableblock{border-width:1px 1px 0 0}
+table.grid-cols th.tableblock,table.grid-cols td.tableblock{border-width:0 1px 0 0}
+table.grid-all *>tr>.tableblock:last-child,table.grid-cols *>tr>.tableblock:last-child{border-right-width:0}
+table.grid-rows th.tableblock,table.grid-rows td.tableblock{border-width:0 0 1px 0}
+table.grid-all tbody>tr:last-child>th.tableblock,table.grid-all tbody>tr:last-child>td.tableblock,table.grid-all thead:last-child>tr>th.tableblock,table.grid-rows tbody>tr:last-child>th.tableblock,table.grid-rows tbody>tr:last-child>td.tableblock,table.grid-rows thead:last-child>tr>th.tableblock{border-bottom-width:0}
+table.grid-rows tfoot>tr>th.tableblock,table.grid-rows tfoot>tr>td.tableblock{border-width:1px 0 0 0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot{border-width:1px 0}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+td>div.verse{white-space:pre}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.unstyled,ol.unnumbered,ul.checklist,ul.none{list-style-type:none}
+ul.unstyled,ol.unnumbered,ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1em;font-size:.85em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{width:1em;position:relative;top:1px}
+ul.inline{margin:0 auto .625em auto;margin-left:-1.375em;margin-right:0;padding:0;list-style:none;overflow:hidden}
+ul.inline>li{list-style:none;float:left;margin-left:1.375em;display:block}
+ul.inline>li>*{display:block}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist>table tr>td:first-of-type{padding:0 .75em;line-height:1}
+.colist>table tr>td:last-of-type{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
+.imageblock.right,.imageblock[style*="float: right"]{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em 0;border-width:1px 0 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;text-indent:-1.05em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background-color:#00fafa}
+.black{color:#000}
+.black-background{background-color:#000}
+.blue{color:#0000bf}
+.blue-background{background-color:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background-color:#fa00fa}
+.gray{color:#606060}
+.gray-background{background-color:#7d7d7d}
+.green{color:#006000}
+.green-background{background-color:#007d00}
+.lime{color:#00bf00}
+.lime-background{background-color:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background-color:#7d0000}
+.navy{color:#000060}
+.navy-background{background-color:#00007d}
+.olive{color:#606000}
+.olive-background{background-color:#7d7d00}
+.purple{color:#600060}
+.purple-background{background-color:#7d007d}
+.red{color:#bf0000}
+.red-background{background-color:#fa0000}
+.silver{color:#909090}
+.silver-background{background-color:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background-color:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background-color:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background-color:#fafa00}
+span.icon>.fa{cursor:default}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note:before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip:before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning:before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution:before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important:before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background-color:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]:after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background-color:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@media print{@page{margin:1.25cm .75cm}
+*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare):after,a[href^="https:"]:not(.bare):after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]:after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #ddddd8!important;padding-bottom:0!important}
+.sect1{padding-bottom:0!important}
+.sect1+.sect1{border:0!important}
+#header>h1:first-child{margin-top:1.25rem}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em 0}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span:before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]:before{display:block}
+#footer{background:none!important;padding:0 .9375em}
+#footer-text{color:rgba(0,0,0,.6)!important;font-size:.9em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+</style>
+<link rel="stylesheet" href="Sujet%20CPOA_fichiers/font-awesome.css">
+<style>
+.listingblock .pygments .hll { background-color: #ffffcc }
+.listingblock .pygments  { background: #f8f8f8; }
+.listingblock .pygments .tok-c { color: #408080; font-style: italic } /* Comment */
+.listingblock .pygments .tok-err { border: 1px solid #FF0000 } /* Error */
+.listingblock .pygments .tok-k { color: #008000; font-weight: bold } /* Keyword */
+.listingblock .pygments .tok-o { color: #666666 } /* Operator */
+.listingblock .pygments .tok-cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.listingblock .pygments .tok-cp { color: #BC7A00 } /* Comment.Preproc */
+.listingblock .pygments .tok-c1 { color: #408080; font-style: italic } /* Comment.Single */
+.listingblock .pygments .tok-cs { color: #408080; font-style: italic } /* Comment.Special */
+.listingblock .pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
+.listingblock .pygments .tok-ge { font-style: italic } /* Generic.Emph */
+.listingblock .pygments .tok-gr { color: #FF0000 } /* Generic.Error */
+.listingblock .pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.listingblock .pygments .tok-gi { color: #00A000 } /* Generic.Inserted */
+.listingblock .pygments .tok-go { color: #888888 } /* Generic.Output */
+.listingblock .pygments .tok-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.listingblock .pygments .tok-gs { font-weight: bold } /* Generic.Strong */
+.listingblock .pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.listingblock .pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
+.listingblock .pygments .tok-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.listingblock .pygments .tok-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.listingblock .pygments .tok-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.listingblock .pygments .tok-kp { color: #008000 } /* Keyword.Pseudo */
+.listingblock .pygments .tok-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.listingblock .pygments .tok-kt { color: #B00040 } /* Keyword.Type */
+.listingblock .pygments .tok-m { color: #666666 } /* Literal.Number */
+.listingblock .pygments .tok-s { color: #BA2121 } /* Literal.String */
+.listingblock .pygments .tok-na { color: #7D9029 } /* Name.Attribute */
+.listingblock .pygments .tok-nb { color: #008000 } /* Name.Builtin */
+.listingblock .pygments .tok-nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.listingblock .pygments .tok-no { color: #880000 } /* Name.Constant */
+.listingblock .pygments .tok-nd { color: #AA22FF } /* Name.Decorator */
+.listingblock .pygments .tok-ni { color: #999999; font-weight: bold } /* Name.Entity */
+.listingblock .pygments .tok-ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.listingblock .pygments .tok-nf { color: #0000FF } /* Name.Function */
+.listingblock .pygments .tok-nl { color: #A0A000 } /* Name.Label */
+.listingblock .pygments .tok-nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.listingblock .pygments .tok-nt { color: #008000; font-weight: bold } /* Name.Tag */
+.listingblock .pygments .tok-nv { color: #19177C } /* Name.Variable */
+.listingblock .pygments .tok-ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.listingblock .pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+.listingblock .pygments .tok-mb { color: #666666 } /* Literal.Number.Bin */
+.listingblock .pygments .tok-mf { color: #666666 } /* Literal.Number.Float */
+.listingblock .pygments .tok-mh { color: #666666 } /* Literal.Number.Hex */
+.listingblock .pygments .tok-mi { color: #666666 } /* Literal.Number.Integer */
+.listingblock .pygments .tok-mo { color: #666666 } /* Literal.Number.Oct */
+.listingblock .pygments .tok-sb { color: #BA2121 } /* Literal.String.Backtick */
+.listingblock .pygments .tok-sc { color: #BA2121 } /* Literal.String.Char */
+.listingblock .pygments .tok-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.listingblock .pygments .tok-s2 { color: #BA2121 } /* Literal.String.Double */
+.listingblock .pygments .tok-se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.listingblock .pygments .tok-sh { color: #BA2121 } /* Literal.String.Heredoc */
+.listingblock .pygments .tok-si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.listingblock .pygments .tok-sx { color: #008000 } /* Literal.String.Other */
+.listingblock .pygments .tok-sr { color: #BB6688 } /* Literal.String.Regex */
+.listingblock .pygments .tok-s1 { color: #BA2121 } /* Literal.String.Single */
+.listingblock .pygments .tok-ss { color: #19177C } /* Literal.String.Symbol */
+.listingblock .pygments .tok-bp { color: #008000 } /* Name.Builtin.Pseudo */
+.listingblock .pygments .tok-vc { color: #19177C } /* Name.Variable.Class */
+.listingblock .pygments .tok-vg { color: #19177C } /* Name.Variable.Global */
+.listingblock .pygments .tok-vi { color: #19177C } /* Name.Variable.Instance */
+.listingblock .pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>DUT-Info/S3/M3105 (CPOA) : Projet refactoring</h1>
+<div class="details">
+<span id="author" class="author">Jean-Michel Bruel</span><br>
+<span id="email" class="email"><a href="mailto:jbruel@gmail.com">jbruel@gmail.com</a></span><br>
+<span id="revnumber">version 1.0,</span>
+<span id="revdate">2015-12-30</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_contexte">1. Contexte</a></li>
+<li><a href="#_refactoring">2. Refactoring</a>
+<ul class="sectlevel2">
+<li><a href="#_nouvelles_fonctionnalit%C3%A9s">2.1. Nouvelles fonctionnalités</a></li>
+<li><a href="#_types_primitifs">2.2. Types primitifs</a></li>
+<li><a href="#_bonnes_pratiques">2.3. Bonnes pratiques</a></li>
+</ul>
+</li>
+<li><a href="#_%C3%80_propos_des_tests">3. À propos des tests</a></li>
+<li><a href="#_attendus_du_projet">4. Attendus du projet</a>
+<ul class="sectlevel2">
+<li><a href="#_mod%C3%A8les_%C3%A0_r%C3%A9aliser">4.1. Modèles à réaliser</a></li>
+<li><a href="#__em_delivrables_em_attendus">4.2. <em>Delivrables</em> attendus</a></li>
+<li><a href="#_evaluation_et_crit%C3%A8res">4.3. Evaluation et critères</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<a class="image" href="http://www.keepandshare.com/htm/task-list-management-software.php"><img src="data:image/jpg;base64,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tHlk8i1t4ztil2Eh5wnQbm4GOoUHvQB3A6UAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFAHmHh74I+CtGAL6cb+UdHu23AfgMD86nl7jueiadp9nptusGn2sNtAvRIYwoH4CqQi2KACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKAENAHLvaX2ma/qGqSQHUYbkIo8niWCNR9wKfvDcWbgg89DQM2tM1Sy1JXNncLIyHDxkEOnsynkfjQIvjpQAUAcp45u5pxa+H9PlaO+1TcryqeYIB/rZPyO0e7D0oGdJYWsFjYwWlpEsVvAgjjjXoqgYA/KgRPQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQBm6ppFpqMiSTRlbmPiOeMlJE+jDB/Dp7GgdyiG1jTAd4/ta2B4KhUnA9xwr/ht/GgC1a63p88E8q3Kx+QhaaOX928WBn5lOCPrjmgLGb4Rt5LmW61+/Qrc6iB5EbDmC2H+rTHqcliPVvagR06/dFAC0AFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQBmaxoum6uqrqdnDcBenmLyORxn04HFAGkowoGMYoAWgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAHSgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAG6UAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQB/9k=" alt="todolist"></a>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contexte"><a class="link" href="#_contexte">1. Contexte</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vous êtes chargé de prendre la suite d’un développement pour laquelle la
+documentation est minimaliste et dont les sources sont disponibles ici :</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/codurance/task-list/tree/master/java" class="bare">https://github.com/codurance/task-list/tree/master/java</a></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Récupérez les sources du projet :</p>
+<div class="ulist">
+<ul>
+<li>
+<p>soit en clonant le dépôt :</p>
+<div class="literalblock">
+<div class="content">
+<pre>git clone https://github.com/codurance/task-list.git</pre>
+</div>
+</div>
+</li>
+<li>
+<p>soit en téléchargeant directement le fichier <a href="https://github.com/codurance/task-list/archive/master.zip">.zip</a>.</p>
+<div class="admonitionblock warning">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Attention de bien copier/cloner dans votre workspace, ou en tout cas
+sur un répertoire pérenne (conseil valables si vous utilisez les PC des salles machines).
+</td>
+</tr>
+</tbody></table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Importez le projet en tant que projet <a href="http://maven.apache.org/">Maven</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="menuseq"><span class="menu">File</span>&nbsp;▸ <span class="submenu">Import…​</span>&nbsp;▸ <span class="submenu">Maven</span>&nbsp;▸ <span class="menuitem">Existing Maven Project</span></span></p>
+</li>
+<li>
+<p>sélectionnez le fichier <code>pom.xml</code> du répertoire <code>java</code></p>
+<div class="admonitionblock note">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Seul le répertoire <code>java</code> nous intéresse. Mais n’hésitez pas à regarder
+les autres langages si ça vous aide.
+</td>
+</tr>
+</tbody></table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Lancez les tests pour vérifier que tout est OK (<code>ApplicationTest.java</code>)</p>
+</li>
+<li>
+<p>À partir de ce code de test (cf. ci-dessous), déterminez ce que fait
+l’application et comment elle fonctionne.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">ApplicationTest.java</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span class="tok-kn">package</span> <span class="tok-n">com</span><span class="tok-o">.</span><span class="tok-na">codurance</span><span class="tok-o">.</span><span class="tok-na">training</span><span class="tok-o">.</span><span class="tok-na">tasks</span><span class="tok-o">;</span>
+
+<span class="tok-kn">import</span> <span class="tok-nn">java.io.BufferedReader</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">java.io.IOException</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">java.io.InputStreamReader</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">java.io.PipedInputStream</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">java.io.PipedOutputStream</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">java.io.PrintWriter</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">org.junit.After</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">org.junit.Before</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">org.junit.Test</span><span class="tok-o">;</span>
+
+<span class="tok-kn">import</span> <span class="tok-nn">static</span> <span class="tok-n">java</span><span class="tok-o">.</span><span class="tok-na">lang</span><span class="tok-o">.</span><span class="tok-na">System</span><span class="tok-o">.</span><span class="tok-na">lineSeparator</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">static</span> <span class="tok-n">org</span><span class="tok-o">.</span><span class="tok-na">hamcrest</span><span class="tok-o">.</span><span class="tok-na">MatcherAssert</span><span class="tok-o">.</span><span class="tok-na">assertThat</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">static</span> <span class="tok-n">org</span><span class="tok-o">.</span><span class="tok-na">hamcrest</span><span class="tok-o">.</span><span class="tok-na">Matchers</span><span class="tok-o">.</span><span class="tok-na">is</span><span class="tok-o">;</span>
+
+<span class="tok-kd">public</span> <span class="tok-kd">final</span> <span class="tok-kd">class</span> <span class="tok-nc">ApplicationTest</span> <span class="tok-o">{</span>
+    <span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-kd">final</span> <span class="tok-n">String</span> <span class="tok-n">PROMPT</span> <span class="tok-o">=</span> <span class="tok-s">"&gt; "</span><span class="tok-o">;</span>
+    <span class="tok-kd">private</span> <span class="tok-kd">final</span> <span class="tok-n">PipedOutputStream</span> <span class="tok-n">inStream</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">PipedOutputStream</span><span class="tok-o">();</span>
+    <span class="tok-kd">private</span> <span class="tok-kd">final</span> <span class="tok-n">PrintWriter</span> <span class="tok-n">inWriter</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">PrintWriter</span><span class="tok-o">(</span><span class="tok-n">inStream</span><span class="tok-o">,</span> <span class="tok-kc">true</span><span class="tok-o">);</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kd">final</span> <span class="tok-n">PipedInputStream</span> <span class="tok-n">outStream</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">PipedInputStream</span><span class="tok-o">();</span>
+    <span class="tok-kd">private</span> <span class="tok-kd">final</span> <span class="tok-n">BufferedReader</span> <span class="tok-n">outReader</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">BufferedReader</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-nf">InputStreamReader</span><span class="tok-o">(</span><span class="tok-n">outStream</span><span class="tok-o">));</span>
+
+    <span class="tok-kd">private</span> <span class="tok-n">Thread</span> <span class="tok-n">applicationThread</span><span class="tok-o">;</span>
+
+    <span class="tok-kd">public</span> <span class="tok-nf">ApplicationTest</span><span class="tok-o">()</span> <span class="tok-kd">throws</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
+        <span class="tok-n">BufferedReader</span> <span class="tok-n">in</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">BufferedReader</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-nf">InputStreamReader</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-nf">PipedInputStream</span><span class="tok-o">(</span><span class="tok-n">inStream</span><span class="tok-o">)));</span>
+        <span class="tok-n">PrintWriter</span> <span class="tok-n">out</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">PrintWriter</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-nf">PipedOutputStream</span><span class="tok-o">(</span><span class="tok-n">outStream</span><span class="tok-o">),</span> <span class="tok-kc">true</span><span class="tok-o">);</span>
+        <span class="tok-n">TaskList</span> <span class="tok-n">taskList</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">TaskList</span><span class="tok-o">(</span><span class="tok-n">in</span><span class="tok-o">,</span> <span class="tok-n">out</span><span class="tok-o">);</span>
+        <span class="tok-n">applicationThread</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">Thread</span><span class="tok-o">(</span><span class="tok-n">taskList</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-nd">@Before</span> <span class="tok-kd">public</span> <span class="tok-kt">void</span>
+    <span class="tok-nf">start_the_application</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-n">applicationThread</span><span class="tok-o">.</span><span class="tok-na">start</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-nd">@After</span> <span class="tok-kd">public</span> <span class="tok-kt">void</span>
+    <span class="tok-nf">kill_the_application</span><span class="tok-o">()</span> <span class="tok-kd">throws</span> <span class="tok-n">IOException</span><span class="tok-o">,</span> <span class="tok-n">InterruptedException</span> <span class="tok-o">{</span>
+        <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">applicationThread</span> <span class="tok-o">==</span> <span class="tok-kc">null</span> <span class="tok-o">||</span> <span class="tok-o">!</span><span class="tok-n">applicationThread</span><span class="tok-o">.</span><span class="tok-na">isAlive</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+            <span class="tok-k">return</span><span class="tok-o">;</span>
+        <span class="tok-o">}</span>
+
+        <span class="tok-n">applicationThread</span><span class="tok-o">.</span><span class="tok-na">interrupt</span><span class="tok-o">();</span>
+        <span class="tok-k">throw</span> <span class="tok-k">new</span> <span class="tok-nf">IllegalStateException</span><span class="tok-o">(</span><span class="tok-s">"The application is still running."</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-nd">@Test</span><span class="tok-o">(</span><span class="tok-n">timeout</span> <span class="tok-o">=</span> <span class="tok-mi">1000</span><span class="tok-o">)</span> <span class="tok-kd">public</span> <span class="tok-kt">void</span>
+    <span class="tok-nf">it_works</span><span class="tok-o">()</span> <span class="tok-kd">throws</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"show"</span><span class="tok-o">);</span>
+
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"add project secrets"</span><span class="tok-o">);</span>
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"add task secrets Eat more donuts."</span><span class="tok-o">);</span>
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"add task secrets Destroy all humans."</span><span class="tok-o">);</span>
+
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"show"</span><span class="tok-o">);</span>
+        <span class="tok-n">readLines</span><span class="tok-o">(</span>
+            <span class="tok-s">"secrets"</span><span class="tok-o">,</span>
+            <span class="tok-s">"    [ ] 1: Eat more donuts."</span><span class="tok-o">,</span>
+            <span class="tok-s">"    [ ] 2: Destroy all humans."</span><span class="tok-o">,</span>
+            <span class="tok-s">""</span>
+        <span class="tok-o">);</span>
+
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"add project training"</span><span class="tok-o">);</span>
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"add task training Four Elements of Simple Design"</span><span class="tok-o">);</span>
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"add task training SOLID"</span><span class="tok-o">);</span>
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"add task training Coupling and Cohesion"</span><span class="tok-o">);</span>
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"add task training Primitive Obsession"</span><span class="tok-o">);</span>
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"add task training Outside-In TDD"</span><span class="tok-o">);</span>
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"add task training Interaction-Driven Design"</span><span class="tok-o">);</span>
+
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"check 1"</span><span class="tok-o">);</span>
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"check 3"</span><span class="tok-o">);</span>
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"check 5"</span><span class="tok-o">);</span>
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"check 6"</span><span class="tok-o">);</span>
+
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"show"</span><span class="tok-o">);</span>
+        <span class="tok-n">readLines</span><span class="tok-o">(</span>
+                <span class="tok-s">"secrets"</span><span class="tok-o">,</span>
+                <span class="tok-s">"    [x] 1: Eat more donuts."</span><span class="tok-o">,</span>
+                <span class="tok-s">"    [ ] 2: Destroy all humans."</span><span class="tok-o">,</span>
+                <span class="tok-s">""</span><span class="tok-o">,</span>
+                <span class="tok-s">"training"</span><span class="tok-o">,</span>
+                <span class="tok-s">"    [x] 3: Four Elements of Simple Design"</span><span class="tok-o">,</span>
+                <span class="tok-s">"    [ ] 4: SOLID"</span><span class="tok-o">,</span>
+                <span class="tok-s">"    [x] 5: Coupling and Cohesion"</span><span class="tok-o">,</span>
+                <span class="tok-s">"    [x] 6: Primitive Obsession"</span><span class="tok-o">,</span>
+                <span class="tok-s">"    [ ] 7: Outside-In TDD"</span><span class="tok-o">,</span>
+                <span class="tok-s">"    [ ] 8: Interaction-Driven Design"</span><span class="tok-o">,</span>
+                <span class="tok-s">""</span>
+        <span class="tok-o">);</span>
+
+        <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-s">"quit"</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">execute</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">command</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
+        <span class="tok-n">read</span><span class="tok-o">(</span><span class="tok-n">PROMPT</span><span class="tok-o">);</span>
+        <span class="tok-n">write</span><span class="tok-o">(</span><span class="tok-n">command</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">read</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">expectedOutput</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
+        <span class="tok-kt">int</span> <span class="tok-n">length</span> <span class="tok-o">=</span> <span class="tok-n">expectedOutput</span><span class="tok-o">.</span><span class="tok-na">length</span><span class="tok-o">();</span>
+        <span class="tok-kt">char</span><span class="tok-o">[]</span> <span class="tok-n">buffer</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-kt">char</span><span class="tok-o">[</span><span class="tok-n">length</span><span class="tok-o">];</span>
+        <span class="tok-n">outReader</span><span class="tok-o">.</span><span class="tok-na">read</span><span class="tok-o">(</span><span class="tok-n">buffer</span><span class="tok-o">,</span> <span class="tok-mi">0</span><span class="tok-o">,</span> <span class="tok-n">length</span><span class="tok-o">);</span>
+        <span class="tok-n">assertThat</span><span class="tok-o">(</span><span class="tok-n">String</span><span class="tok-o">.</span><span class="tok-na">valueOf</span><span class="tok-o">(</span><span class="tok-n">buffer</span><span class="tok-o">),</span> <span class="tok-n">is</span><span class="tok-o">(</span><span class="tok-n">expectedOutput</span><span class="tok-o">));</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">readLines</span><span class="tok-o">(</span><span class="tok-n">String</span><span class="tok-o">...</span> <span class="tok-n">expectedOutput</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">IOException</span> <span class="tok-o">{</span>
+        <span class="tok-k">for</span> <span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">line</span> <span class="tok-o">:</span> <span class="tok-n">expectedOutput</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+            <span class="tok-n">read</span><span class="tok-o">(</span><span class="tok-n">line</span> <span class="tok-o">+</span> <span class="tok-n">lineSeparator</span><span class="tok-o">());</span>
+        <span class="tok-o">}</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">write</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">input</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">inWriter</span><span class="tok-o">.</span><span class="tok-na">println</span><span class="tok-o">(</span><span class="tok-n">input</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Task.java</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span class="tok-kn">package</span> <span class="tok-n">com</span><span class="tok-o">.</span><span class="tok-na">codurance</span><span class="tok-o">.</span><span class="tok-na">training</span><span class="tok-o">.</span><span class="tok-na">tasks</span><span class="tok-o">;</span>
+
+<span class="tok-kd">public</span> <span class="tok-kd">final</span> <span class="tok-kd">class</span> <span class="tok-nc">Task</span> <span class="tok-o">{</span>
+    <span class="tok-kd">private</span> <span class="tok-kd">final</span> <span class="tok-kt">long</span> <span class="tok-n">id</span><span class="tok-o">;</span>
+    <span class="tok-kd">private</span> <span class="tok-kd">final</span> <span class="tok-n">String</span> <span class="tok-n">description</span><span class="tok-o">;</span>
+    <span class="tok-kd">private</span> <span class="tok-kt">boolean</span> <span class="tok-n">done</span><span class="tok-o">;</span>
+
+    <span class="tok-kd">public</span> <span class="tok-nf">Task</span><span class="tok-o">(</span><span class="tok-kt">long</span> <span class="tok-n">id</span><span class="tok-o">,</span> <span class="tok-n">String</span> <span class="tok-n">description</span><span class="tok-o">,</span> <span class="tok-kt">boolean</span> <span class="tok-n">done</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">id</span> <span class="tok-o">=</span> <span class="tok-n">id</span><span class="tok-o">;</span>
+        <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">description</span> <span class="tok-o">=</span> <span class="tok-n">description</span><span class="tok-o">;</span>
+        <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">done</span> <span class="tok-o">=</span> <span class="tok-n">done</span><span class="tok-o">;</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">public</span> <span class="tok-kt">long</span> <span class="tok-nf">getId</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-k">return</span> <span class="tok-n">id</span><span class="tok-o">;</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">public</span> <span class="tok-n">String</span> <span class="tok-nf">getDescription</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-k">return</span> <span class="tok-n">description</span><span class="tok-o">;</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">public</span> <span class="tok-kt">boolean</span> <span class="tok-nf">isDone</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-k">return</span> <span class="tok-n">done</span><span class="tok-o">;</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">setDone</span><span class="tok-o">(</span><span class="tok-kt">boolean</span> <span class="tok-n">done</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">done</span> <span class="tok-o">=</span> <span class="tok-n">done</span><span class="tok-o">;</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">TaskList.java</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span class="tok-kn">package</span> <span class="tok-n">com</span><span class="tok-o">.</span><span class="tok-na">codurance</span><span class="tok-o">.</span><span class="tok-na">training</span><span class="tok-o">.</span><span class="tok-na">tasks</span><span class="tok-o">;</span>
+
+<span class="tok-kn">import</span> <span class="tok-nn">java.io.BufferedReader</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">java.io.IOException</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">java.io.InputStreamReader</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">java.io.PrintWriter</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">java.util.ArrayList</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">java.util.LinkedHashMap</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">java.util.List</span><span class="tok-o">;</span>
+<span class="tok-kn">import</span> <span class="tok-nn">java.util.Map</span><span class="tok-o">;</span>
+
+<span class="tok-kd">public</span> <span class="tok-kd">final</span> <span class="tok-kd">class</span> <span class="tok-nc">TaskList</span> <span class="tok-kd">implements</span> <span class="tok-n">Runnable</span> <span class="tok-o">{</span>
+    <span class="tok-kd">private</span> <span class="tok-kd">static</span> <span class="tok-kd">final</span> <span class="tok-n">String</span> <span class="tok-n">QUIT</span> <span class="tok-o">=</span> <span class="tok-s">"quit"</span><span class="tok-o">;</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kd">final</span> <span class="tok-n">Map</span><span class="tok-o">&lt;</span><span class="tok-n">String</span><span class="tok-o">,</span> <span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">Task</span><span class="tok-o">&gt;&gt;</span> <span class="tok-n">tasks</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">LinkedHashMap</span><span class="tok-o">&lt;&gt;();</span>
+    <span class="tok-kd">private</span> <span class="tok-kd">final</span> <span class="tok-n">BufferedReader</span> <span class="tok-n">in</span><span class="tok-o">;</span>
+    <span class="tok-kd">private</span> <span class="tok-kd">final</span> <span class="tok-n">PrintWriter</span> <span class="tok-n">out</span><span class="tok-o">;</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kt">long</span> <span class="tok-n">lastId</span> <span class="tok-o">=</span> <span class="tok-mi">0</span><span class="tok-o">;</span>
+
+    <span class="tok-kd">public</span> <span class="tok-kd">static</span> <span class="tok-kt">void</span> <span class="tok-nf">main</span><span class="tok-o">(</span><span class="tok-n">String</span><span class="tok-o">[]</span> <span class="tok-n">args</span><span class="tok-o">)</span> <span class="tok-kd">throws</span> <span class="tok-n">Exception</span> <span class="tok-o">{</span>
+        <span class="tok-n">BufferedReader</span> <span class="tok-n">in</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">BufferedReader</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-nf">InputStreamReader</span><span class="tok-o">(</span><span class="tok-n">System</span><span class="tok-o">.</span><span class="tok-na">in</span><span class="tok-o">));</span>
+        <span class="tok-n">PrintWriter</span> <span class="tok-n">out</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-nf">PrintWriter</span><span class="tok-o">(</span><span class="tok-n">System</span><span class="tok-o">.</span><span class="tok-na">out</span><span class="tok-o">);</span>
+        <span class="tok-k">new</span> <span class="tok-nf">TaskList</span><span class="tok-o">(</span><span class="tok-n">in</span><span class="tok-o">,</span> <span class="tok-n">out</span><span class="tok-o">).</span><span class="tok-na">run</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">public</span> <span class="tok-nf">TaskList</span><span class="tok-o">(</span><span class="tok-n">BufferedReader</span> <span class="tok-n">reader</span><span class="tok-o">,</span> <span class="tok-n">PrintWriter</span> <span class="tok-n">writer</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">in</span> <span class="tok-o">=</span> <span class="tok-n">reader</span><span class="tok-o">;</span>
+        <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">out</span> <span class="tok-o">=</span> <span class="tok-n">writer</span><span class="tok-o">;</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">public</span> <span class="tok-kt">void</span> <span class="tok-nf">run</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-k">while</span> <span class="tok-o">(</span><span class="tok-kc">true</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+            <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">print</span><span class="tok-o">(</span><span class="tok-s">"&gt; "</span><span class="tok-o">);</span>
+            <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">flush</span><span class="tok-o">();</span>
+            <span class="tok-n">String</span> <span class="tok-n">command</span><span class="tok-o">;</span>
+            <span class="tok-k">try</span> <span class="tok-o">{</span>
+                <span class="tok-n">command</span> <span class="tok-o">=</span> <span class="tok-n">in</span><span class="tok-o">.</span><span class="tok-na">readLine</span><span class="tok-o">();</span>
+            <span class="tok-o">}</span> <span class="tok-k">catch</span> <span class="tok-o">(</span><span class="tok-n">IOException</span> <span class="tok-n">e</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+                <span class="tok-k">throw</span> <span class="tok-k">new</span> <span class="tok-nf">RuntimeException</span><span class="tok-o">(</span><span class="tok-n">e</span><span class="tok-o">);</span>
+            <span class="tok-o">}</span>
+            <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">command</span><span class="tok-o">.</span><span class="tok-na">equals</span><span class="tok-o">(</span><span class="tok-n">QUIT</span><span class="tok-o">))</span> <span class="tok-o">{</span>
+                <span class="tok-k">break</span><span class="tok-o">;</span>
+            <span class="tok-o">}</span>
+            <span class="tok-n">execute</span><span class="tok-o">(</span><span class="tok-n">command</span><span class="tok-o">);</span>
+        <span class="tok-o">}</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">execute</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">commandLine</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">String</span><span class="tok-o">[]</span> <span class="tok-n">commandRest</span> <span class="tok-o">=</span> <span class="tok-n">commandLine</span><span class="tok-o">.</span><span class="tok-na">split</span><span class="tok-o">(</span><span class="tok-s">" "</span><span class="tok-o">,</span> <span class="tok-mi">2</span><span class="tok-o">);</span>
+        <span class="tok-n">String</span> <span class="tok-n">command</span> <span class="tok-o">=</span> <span class="tok-n">commandRest</span><span class="tok-o">[</span><span class="tok-mi">0</span><span class="tok-o">];</span>
+        <span class="tok-k">switch</span> <span class="tok-o">(</span><span class="tok-n">command</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+            <span class="tok-k">case</span> <span class="tok-s">"show"</span><span class="tok-o">:</span>
+                <span class="tok-n">show</span><span class="tok-o">();</span>
+                <span class="tok-k">break</span><span class="tok-o">;</span>
+            <span class="tok-k">case</span> <span class="tok-s">"add"</span><span class="tok-o">:</span>
+                <span class="tok-n">add</span><span class="tok-o">(</span><span class="tok-n">commandRest</span><span class="tok-o">[</span><span class="tok-mi">1</span><span class="tok-o">]);</span>
+                <span class="tok-k">break</span><span class="tok-o">;</span>
+            <span class="tok-k">case</span> <span class="tok-s">"check"</span><span class="tok-o">:</span>
+                <span class="tok-n">check</span><span class="tok-o">(</span><span class="tok-n">commandRest</span><span class="tok-o">[</span><span class="tok-mi">1</span><span class="tok-o">]);</span>
+                <span class="tok-k">break</span><span class="tok-o">;</span>
+            <span class="tok-k">case</span> <span class="tok-s">"uncheck"</span><span class="tok-o">:</span>
+                <span class="tok-n">uncheck</span><span class="tok-o">(</span><span class="tok-n">commandRest</span><span class="tok-o">[</span><span class="tok-mi">1</span><span class="tok-o">]);</span>
+                <span class="tok-k">break</span><span class="tok-o">;</span>
+            <span class="tok-k">case</span> <span class="tok-s">"help"</span><span class="tok-o">:</span>
+                <span class="tok-n">help</span><span class="tok-o">();</span>
+                <span class="tok-k">break</span><span class="tok-o">;</span>
+            <span class="tok-k">default</span><span class="tok-o">:</span>
+                <span class="tok-n">error</span><span class="tok-o">(</span><span class="tok-n">command</span><span class="tok-o">);</span>
+                <span class="tok-k">break</span><span class="tok-o">;</span>
+        <span class="tok-o">}</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">show</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-k">for</span> <span class="tok-o">(</span><span class="tok-n">Map</span><span class="tok-o">.</span><span class="tok-na">Entry</span><span class="tok-o">&lt;</span><span class="tok-n">String</span><span class="tok-o">,</span> <span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">Task</span><span class="tok-o">&gt;&gt;</span> <span class="tok-n">project</span> <span class="tok-o">:</span> <span class="tok-n">tasks</span><span class="tok-o">.</span><span class="tok-na">entrySet</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+            <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">println</span><span class="tok-o">(</span><span class="tok-n">project</span><span class="tok-o">.</span><span class="tok-na">getKey</span><span class="tok-o">());</span>
+            <span class="tok-k">for</span> <span class="tok-o">(</span><span class="tok-n">Task</span> <span class="tok-n">task</span> <span class="tok-o">:</span> <span class="tok-n">project</span><span class="tok-o">.</span><span class="tok-na">getValue</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+                <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">printf</span><span class="tok-o">(</span><span class="tok-s">"    [%c] %d: %s%n"</span><span class="tok-o">,</span> <span class="tok-o">(</span><span class="tok-n">task</span><span class="tok-o">.</span><span class="tok-na">isDone</span><span class="tok-o">()</span> <span class="tok-o">?</span> <span class="tok-sc">'x'</span> <span class="tok-o">:</span> <span class="tok-sc">' '</span><span class="tok-o">),</span> <span class="tok-n">task</span><span class="tok-o">.</span><span class="tok-na">getId</span><span class="tok-o">(),</span> <span class="tok-n">task</span><span class="tok-o">.</span><span class="tok-na">getDescription</span><span class="tok-o">());</span>
+            <span class="tok-o">}</span>
+            <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">println</span><span class="tok-o">();</span>
+        <span class="tok-o">}</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">add</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">commandLine</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">String</span><span class="tok-o">[]</span> <span class="tok-n">subcommandRest</span> <span class="tok-o">=</span> <span class="tok-n">commandLine</span><span class="tok-o">.</span><span class="tok-na">split</span><span class="tok-o">(</span><span class="tok-s">" "</span><span class="tok-o">,</span> <span class="tok-mi">2</span><span class="tok-o">);</span>
+        <span class="tok-n">String</span> <span class="tok-n">subcommand</span> <span class="tok-o">=</span> <span class="tok-n">subcommandRest</span><span class="tok-o">[</span><span class="tok-mi">0</span><span class="tok-o">];</span>
+        <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">subcommand</span><span class="tok-o">.</span><span class="tok-na">equals</span><span class="tok-o">(</span><span class="tok-s">"project"</span><span class="tok-o">))</span> <span class="tok-o">{</span>
+            <span class="tok-n">addProject</span><span class="tok-o">(</span><span class="tok-n">subcommandRest</span><span class="tok-o">[</span><span class="tok-mi">1</span><span class="tok-o">]);</span>
+        <span class="tok-o">}</span> <span class="tok-k">else</span> <span class="tok-nf">if</span> <span class="tok-o">(</span><span class="tok-n">subcommand</span><span class="tok-o">.</span><span class="tok-na">equals</span><span class="tok-o">(</span><span class="tok-s">"task"</span><span class="tok-o">))</span> <span class="tok-o">{</span>
+            <span class="tok-n">String</span><span class="tok-o">[]</span> <span class="tok-n">projectTask</span> <span class="tok-o">=</span> <span class="tok-n">subcommandRest</span><span class="tok-o">[</span><span class="tok-mi">1</span><span class="tok-o">].</span><span class="tok-na">split</span><span class="tok-o">(</span><span class="tok-s">" "</span><span class="tok-o">,</span> <span class="tok-mi">2</span><span class="tok-o">);</span>
+            <span class="tok-n">addTask</span><span class="tok-o">(</span><span class="tok-n">projectTask</span><span class="tok-o">[</span><span class="tok-mi">0</span><span class="tok-o">],</span> <span class="tok-n">projectTask</span><span class="tok-o">[</span><span class="tok-mi">1</span><span class="tok-o">]);</span>
+        <span class="tok-o">}</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">addProject</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">name</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">tasks</span><span class="tok-o">.</span><span class="tok-na">put</span><span class="tok-o">(</span><span class="tok-n">name</span><span class="tok-o">,</span> <span class="tok-k">new</span> <span class="tok-n">ArrayList</span><span class="tok-o">&lt;</span><span class="tok-n">Task</span><span class="tok-o">&gt;());</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">addTask</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">project</span><span class="tok-o">,</span> <span class="tok-n">String</span> <span class="tok-n">description</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">Task</span><span class="tok-o">&gt;</span> <span class="tok-n">projectTasks</span> <span class="tok-o">=</span> <span class="tok-n">tasks</span><span class="tok-o">.</span><span class="tok-na">get</span><span class="tok-o">(</span><span class="tok-n">project</span><span class="tok-o">);</span>
+        <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">projectTasks</span> <span class="tok-o">==</span> <span class="tok-kc">null</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+            <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">printf</span><span class="tok-o">(</span><span class="tok-s">"Could not find a project with the name \"%s\"."</span><span class="tok-o">,</span> <span class="tok-n">project</span><span class="tok-o">);</span>
+            <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">println</span><span class="tok-o">();</span>
+            <span class="tok-k">return</span><span class="tok-o">;</span>
+        <span class="tok-o">}</span>
+        <span class="tok-n">projectTasks</span><span class="tok-o">.</span><span class="tok-na">add</span><span class="tok-o">(</span><span class="tok-k">new</span> <span class="tok-nf">Task</span><span class="tok-o">(</span><span class="tok-n">nextId</span><span class="tok-o">(),</span> <span class="tok-n">description</span><span class="tok-o">,</span> <span class="tok-kc">false</span><span class="tok-o">));</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">check</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">idString</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">setDone</span><span class="tok-o">(</span><span class="tok-n">idString</span><span class="tok-o">,</span> <span class="tok-kc">true</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">uncheck</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">idString</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">setDone</span><span class="tok-o">(</span><span class="tok-n">idString</span><span class="tok-o">,</span> <span class="tok-kc">false</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">setDone</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">idString</span><span class="tok-o">,</span> <span class="tok-kt">boolean</span> <span class="tok-n">done</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-kt">int</span> <span class="tok-n">id</span> <span class="tok-o">=</span> <span class="tok-n">Integer</span><span class="tok-o">.</span><span class="tok-na">parseInt</span><span class="tok-o">(</span><span class="tok-n">idString</span><span class="tok-o">);</span>
+        <span class="tok-k">for</span> <span class="tok-o">(</span><span class="tok-n">Map</span><span class="tok-o">.</span><span class="tok-na">Entry</span><span class="tok-o">&lt;</span><span class="tok-n">String</span><span class="tok-o">,</span> <span class="tok-n">List</span><span class="tok-o">&lt;</span><span class="tok-n">Task</span><span class="tok-o">&gt;&gt;</span> <span class="tok-n">project</span> <span class="tok-o">:</span> <span class="tok-n">tasks</span><span class="tok-o">.</span><span class="tok-na">entrySet</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+            <span class="tok-k">for</span> <span class="tok-o">(</span><span class="tok-n">Task</span> <span class="tok-n">task</span> <span class="tok-o">:</span> <span class="tok-n">project</span><span class="tok-o">.</span><span class="tok-na">getValue</span><span class="tok-o">())</span> <span class="tok-o">{</span>
+                <span class="tok-k">if</span> <span class="tok-o">(</span><span class="tok-n">task</span><span class="tok-o">.</span><span class="tok-na">getId</span><span class="tok-o">()</span> <span class="tok-o">==</span> <span class="tok-n">id</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+                    <span class="tok-n">task</span><span class="tok-o">.</span><span class="tok-na">setDone</span><span class="tok-o">(</span><span class="tok-n">done</span><span class="tok-o">);</span>
+                    <span class="tok-k">return</span><span class="tok-o">;</span>
+                <span class="tok-o">}</span>
+            <span class="tok-o">}</span>
+        <span class="tok-o">}</span>
+        <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">printf</span><span class="tok-o">(</span><span class="tok-s">"Could not find a task with an ID of %d."</span><span class="tok-o">,</span> <span class="tok-n">id</span><span class="tok-o">);</span>
+        <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">println</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">help</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">println</span><span class="tok-o">(</span><span class="tok-s">"Commands:"</span><span class="tok-o">);</span>
+        <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">println</span><span class="tok-o">(</span><span class="tok-s">"  show"</span><span class="tok-o">);</span>
+        <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">println</span><span class="tok-o">(</span><span class="tok-s">"  add project &lt;project name&gt;"</span><span class="tok-o">);</span>
+        <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">println</span><span class="tok-o">(</span><span class="tok-s">"  add task &lt;project name&gt; &lt;task description&gt;"</span><span class="tok-o">);</span>
+        <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">println</span><span class="tok-o">(</span><span class="tok-s">"  check &lt;task ID&gt;"</span><span class="tok-o">);</span>
+        <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">println</span><span class="tok-o">(</span><span class="tok-s">"  uncheck &lt;task ID&gt;"</span><span class="tok-o">);</span>
+        <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">println</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kt">void</span> <span class="tok-nf">error</span><span class="tok-o">(</span><span class="tok-n">String</span> <span class="tok-n">command</span><span class="tok-o">)</span> <span class="tok-o">{</span>
+        <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">printf</span><span class="tok-o">(</span><span class="tok-s">"I don't know what the command \"%s\" is."</span><span class="tok-o">,</span> <span class="tok-n">command</span><span class="tok-o">);</span>
+        <span class="tok-n">out</span><span class="tok-o">.</span><span class="tok-na">println</span><span class="tok-o">();</span>
+    <span class="tok-o">}</span>
+
+    <span class="tok-kd">private</span> <span class="tok-kt">long</span> <span class="tok-nf">nextId</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-k">return</span> <span class="tok-o">++</span><span class="tok-n">lastId</span><span class="tok-o">;</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_refactoring"><a class="link" href="#_refactoring">2. Refactoring</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vous avez 5 séances de 1,5h (1 TD et 4 TPs) pour améliorer le plus possible
+cette application en (cf. détails juste après cette liste) :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>y ajoutant de nouvelles fonctionnalités au passage (cf. ci-dessous).</p>
+</li>
+<li>
+<p>s’attaquant aux types primitifs massivement utilisés</p>
+</li>
+<li>
+<p>mettant en oeuvre les bonnes pratiques objet</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_nouvelles_fonctionnalités"><a class="link" href="#_nouvelles_fonctionnalit%C3%A9s">2.1. Nouvelles fonctionnalités</a></h3>
+<div class="paragraph">
+<p>Vous choisirez parmis les attentes clients suivantes (numérotées pour vos
+documentations, pas pour les prioriser) :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Deadlines</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Chaque tâche pourra disposer d’une "date limite" (exemple de commande : <code>deadline &lt;ID&gt; &lt;date&gt;</code>).</p>
+</li>
+<li>
+<p>La commande <code>today</code> permettra de voir toutes les tâches dont la deadline est
+aujourd’hui.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Suppression</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Autoriser l’utilisateur à supprimer des tâches (exemple de commande : <code>delete &lt;ID&gt;</code>).</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Visualisations</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Visualiser les tâches par date (exemple de commande : <code>view by date</code>).</p>
+</li>
+<li>
+<p>Visualiser les tâches par deadline  (exemple de commande : <code>view by deadline</code>).</p>
+</li>
+<li>
+<p>Sans changer la fonctionnalités qui permet à un utilisateur de voir les tâches par projet,
+changer la commande en <code>view by project</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Permettre qu’une tâche puisse « appartenir » à plusieurs projets en même temps
+(si cochée dans l’une, cochée dans toutes par exemple)</p>
+</li>
+<li>
+<p>Faire en sorte que l’application maintienne en permanence 2 listes de tâches par projet : les "cochées" et les "non cochées"</p>
+</li>
+<li>
+<p>(Attention celle-là est coton) Faire en sorte qu’une tâche puisse être elle-même une liste de tâche</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+On pourra faire des visualisations graphiques simples (genre post-its).
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Attention, certaines fonctionnalités sont assez incompatibles entre elles, et certaines sont beaucoup
+plus complexes à mettre en oeuvre que d’autres.
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_types_primitifs"><a class="link" href="#_types_primitifs">2.2. Types primitifs</a></h3>
+<div class="paragraph">
+<p>Si vous avez observé attentivement le code, vous vous êtes rendu compte qu’il utilise assez peu
+d’objets et par contre beaucoup de types primitifs (entiers, char, strings, collections, etc.).
+Les concepts métiers sont faiblement présent (<code>task</code>, <code>project</code>, etc.).</p>
+</div>
+<div class="paragraph">
+<p>Essayez, en implémentant vos nouvelles fonctionnalités, de vous débarrasser le plus possible des types
+primitifs.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Un bon exemple pour voir si vous vous focalisez sur les concepts métiers est
+de vérifier que les types primitifs sont uniquement employés dans les paramètres des
+constructeurs, les variables locales ou les attributs privés.
+Ils ne devraient jamais être retournés ou être passés en paramètres à vos méthodes (exception faite des
+  lectures clavier, etc.).
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bonnes_pratiques"><a class="link" href="#_bonnes_pratiques">2.3. Bonnes pratiques</a></h3>
+<div class="paragraph">
+<p>Pour n’en citer que quelques-unes vues en cours (SOLID) :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>S</strong>ingle Responsibility Principle</p>
+</li>
+<li>
+<p><strong>O</strong>pen-Closed Principle</p>
+</li>
+<li>
+<p><strong>L</strong>iskov Substitution Principle</p>
+</li>
+<li>
+<p><strong>I</strong>nterface Segregation Principle</p>
+</li>
+<li>
+<p><strong>D</strong>ependency Inversion Principle</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Essayez d’identifier clairement dans votre documentation les principes mis en oeuvre
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_À_propos_des_tests"><a class="link" href="#_%C3%80_propos_des_tests">3. À propos des tests</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vous remarquerez que le seul test fournit est un test fonctionnel.
+Il pourra vous être utile pour vérifier que votre application respecte toujours
+bien le cahier des charges initial. Vous pourrez même l’enrichir pour tester
+que vos nouvelles commandes (du type <code>view by …​</code>) fonctionnent.</p>
+</div>
+<div class="paragraph">
+<p>Par contre il ne vous dispense pas du tout
+des tests unitaires classiques pour les classes que vous allez produire.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_attendus_du_projet"><a class="link" href="#_attendus_du_projet">4. Attendus du projet</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_modèles_à_réaliser"><a class="link" href="#_mod%C3%A8les_%C3%A0_r%C3%A9aliser">4.1. Modèles à réaliser</a></h3>
+<div class="paragraph">
+<p>On ne vous embête pas ce coup-ci avec les modèles mais n’hésitez pas à en utiliser
+(des cohérents avec votre code) pour vos documentations.</p>
+</div>
+<div class="paragraph">
+<p>Voici d’ailleurs le diagramme de classe minimaliste initial de l’application :</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="data:image/png;base64,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" alt="taskList">
+</div>
+<div class="title">Figure 1. Diagramme de classe initial de l’application</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="__em_delivrables_em_attendus"><a class="link" href="#__em_delivrables_em_attendus">4.2. <em>Delivrables</em> attendus</a></h3>
+<div class="paragraph">
+<p>Vous déposerez avant le vendredi 22/01/2016 à minuit sur le dépôt moodle deux
+documents uniquement :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Un rapport au format <code>.pdf</code> contenant (outre les éléments habituels d’un rapport
+comme les noms et contact des binômes, une table des matières, …​)
+une courte explication par chaque fonctionnalité nouvelle ou refactoring précis
+avec des extraits de code illustratifs et une justification.</p>
+</li>
+<li>
+<p>Un fichier <code>.zip</code> contenant un export de votre projet eclipse qui contiendra
+à minima un répertoire <code>src</code> avec les sources et un répertoire <code>doc</code> avec la
+javadoc.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tbody><tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Pour générer ce <code>.zip</code>, choisissez bien l’option <span class="menuseq"><span class="menu">Export…​</span>&nbsp;▸ <span class="submenu">General</span>&nbsp;▸ <span class="menuitem">Archive File</span></span> après
+un click droit sur le projet en question.
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_evaluation_et_critères"><a class="link" href="#_evaluation_et_crit%C3%A8res">4.3. Evaluation et critères</a></h3>
+<div class="paragraph">
+<p>Vous pourrez travailler en groupe (2 max).</p>
+</div>
+<div class="paragraph">
+<p>Les principaux critères qui guideront la notation seront :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>pertinence des choix</p>
+</li>
+<li>
+<p>qualité du code</p>
+</li>
+<li>
+<p>qualité du rapport (illustration, explications)</p>
+</li>
+<li>
+<p>extras (tests, modèles)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>En cas de besoin, n’hésitez pas à me contacter (<a href="mailto:jean-michel.bruel@univ-tlse2.fr">jean-michel.bruel@univ-tlse2.fr</a>).</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Document généré par <a href="mailto:jbruel@gmail.com">Jean-Michel Bruel</a> via <a href="http://asciidoctor.org/">Asciidoctor</a> (version <code>1.5.3</code>).
+Pour l’instant ce document est libre d’utilisation et géré par la 'Licence Creative Commons'.
+<span class="image"><a class="image" href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="data:image/png;base64,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" alt="Licence Creative Commons"></a></span>
+<a href="http://creativecommons.org/licenses/by-sa/3.0/">licence Creative Commons Paternité - Partage à l'Identique 3.0 non transposé</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0<br>
+Last updated 2015-12-30 14:51:13 CET
+</div>
+</div>
+
+</body></html>
