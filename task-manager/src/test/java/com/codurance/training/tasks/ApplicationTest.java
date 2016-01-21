@@ -90,6 +90,19 @@ public final class ApplicationTest {
                 "    [ ] 8: Interaction-Driven Design",
                 ""
         );
+        
+        execute("deadline 1 19/01/2016");
+        execute("deadline 6 21/01/2016");
+        execute("deadline 8 21/01/2016");
+        execute("today");
+        readLines(
+        		"secrets",
+        		"    Pas de tâche à finir aujourd'hui pour ce projet.",
+        		"training",
+        		"    [x] 6: Primitive Obsession",
+        		"    [ ] 8: Interaction-Driven Design",
+        		""
+        );
 
         execute("quit");
     }

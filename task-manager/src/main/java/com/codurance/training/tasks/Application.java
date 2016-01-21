@@ -223,6 +223,7 @@ public final class Application implements Runnable {
     }
     
     private void viewByDate () {
+    	
     }
     
     private void viewByDeadline () {
