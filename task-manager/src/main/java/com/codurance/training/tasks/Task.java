@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public final class Task {
-	private final long id;
+	private long id;
 	private final String description;
 	private boolean done;
 	private Date deadline;
@@ -28,6 +28,10 @@ public final class Task {
 
 	public long getId() {
 		return id;
+	}
+	
+	public void setId(long pId) {
+		this.id = pId;
 	}
 
 	public String getDescription() {

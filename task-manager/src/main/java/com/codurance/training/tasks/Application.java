@@ -125,6 +125,7 @@ public final class Application implements Runnable {
 		for (Projet projet : projects) {
 			for (Task task : projet.getTasks()) {
 				if (task.getDescription().equals(tempTask.getDescription())) {
+					tempTask.setId(task.getId());
 					if (task.isDone()) {
 						tempTask.setDone(true);
 					}
@@ -146,7 +147,13 @@ public final class Application implements Runnable {
 	}
 
 	private void check(String idString) {
-		setDone(idString, true);
+		for (Projet projet : projects) {
+			for (Task task : projet.getTasks()) {
+				if (task.getId() == Long.parseLong(idString)) {
+					task.setDone(true);
+				}
+			}
+		}
 	}
 
 	private void uncheck(String idString) {
