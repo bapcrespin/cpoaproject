@@ -20,17 +20,39 @@ public final class Application implements Runnable {
 
 	private long lastId = 0;
 
+	/**
+	 * Permet d'instancier le BufferedReader et PrintWriter afin de pouvoir 
+	 * gérer l'affichage et lance l'application Runnable avec la méthode run()
+	 * 
+	 * @param args
+	 * @throws Exception
+	 * @see BufferedReader
+	 * @see PrintWriter
+	 */
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		PrintWriter out = new PrintWriter(System.out);
 		new Application(in, out).run();
 	}
 
+	/**
+	 * Constructeur de l'application ayant deux parametres. Initialise la sortie et entré du buffeur.
+	 * 
+	 * @param reader
+	 * @param writer
+	 * @see BufferedReader
+	 * @see PrintWriter
+	 */
 	public Application(BufferedReader reader, PrintWriter writer) {
 		this.in = reader;
 		this.out = writer;
 	}
 
+	/**
+	 * Methode utiliser pour démarrer le thread et lancer l'application
+	 * 
+	 * @see Application#execute
+	 */
 	public void run() {
 		while (true) {
 			out.print("> ");
@@ -48,6 +70,20 @@ public final class Application implements Runnable {
 		}
 	}
 
+	/**
+	 * Permet d'executer les actions liées aux commandes tapées.
+	 * 
+	 * @param commandLine
+	 * 					Commandes écrites dans la console
+	 * @see Application#view
+	 * @see Application#add
+	 * @see Application#deleteTask
+	 * @see Application#check
+	 * @see Application#uncheck
+	 * @see Application#help
+	 * @see Application#deadline
+	 * @see Application#today
+	 */
 	private void execute(String commandLine) {
 		String[] commandRest = commandLine.split(" ", 2);
 		String command = commandRest[0];
@@ -82,6 +118,12 @@ public final class Application implements Runnable {
 		}
 	}
 
+	/**
+	 * Affiche la liste des taches regroupées par projet.
+	 * 
+	 * @see Projet
+	 * @see Task
+	 */
 	private void viewByProject() {
 		for (Projet projet : projects) {
 			out.println(projet.getName());
@@ -95,6 +137,14 @@ public final class Application implements Runnable {
 		}
 	}
 
+	/**
+	 * En fonction de la commande tapé après le add execute l'action correspondante
+	 * 
+	 * @param commandLine
+	 * 					Suite de la commande tapé par l'utilisateur après add
+	 * @see Application#addProject
+	 * @see Application#addTask
+	 */
 	private void add(String commandLine) {
 		String[] subcommandRest = commandLine.split(" ", 2);
 		String subcommand = subcommandRest[0];
@@ -108,10 +158,26 @@ public final class Application implements Runnable {
 		}
 	}
 
+	/**
+	 * Crée un projet et l'ajoute dans la liste des projets.
+	 * 
+	 * @param name
+	 * 			nom du projet
+	 */
 	private void addProject(String name) {
 		projects.add(new Projet(name));
 	}
 
+	/**
+	 * Crée et ajoute une tache dans un projet dans la liste des taches cochées ou non cochées.
+	 * 
+	 * @param project
+	 * 				nom du projet
+	 * @param description
+	 * 					nom de la tache
+	 * @see Task
+	 * @see Projet
+	 */
 	private void addTask(String project, String description) {
 		Projet temp = null;
 		for (Projet projet : projects) {
@@ -145,6 +211,12 @@ public final class Application implements Runnable {
 		temp.addTaskde(tempTask);
 	}
 
+	/**
+	 * Supprime une tache existante.
+	 * 
+	 * @param id
+	 * 			identifiant de la tache
+	 */
 	private void deleteTask(int id) {
 		for (Projet projet : projects) {
 			for (Task task : projet.getTasksco()) {
@@ -162,6 +234,14 @@ public final class Application implements Runnable {
 		}
 	}
 
+	/**
+	 * Coche une tache ou plusieurs taches s'y elles ont le même identifiant.
+	 * 
+	 * @param idString
+	 * 				identifiant de la tache
+	 * @see Task
+	 * @see Projet
+	 */
 	private void check(String idString) {
 		int temp = -1;
 		ArrayList<Task> toRemove = new ArrayList<Task>();
@@ -189,6 +269,14 @@ public final class Application implements Runnable {
 		
 	}
 
+	/**
+	 * Decoche une tache ou plusieurs taches s'y elles ont le même identifiant.
+	 * 
+	 * @param idString
+	 * 				identifiant de la tache
+	 * @see Task
+	 * @see Projet
+	 */
 	private void uncheck(String idString) {
 		int temp = -1;
 		ArrayList<Task> toRemove = new ArrayList<Task>();
@@ -215,6 +303,9 @@ public final class Application implements Runnable {
 		}
 	}
 
+	/**
+	 * Affiche l'aide des commandes dans la console
+	 */
 	private void help() {
 		out.println("Commands:");
 		out.println("  view by project");
@@ -230,6 +321,15 @@ public final class Application implements Runnable {
 		out.println();
 	}
 
+	/**
+	 * Affecte une date de fin à une tache ou des taches s'y il ya des taches avec le meme idetifiant.
+	 * 
+	 * @param commandLine
+	 * 					date de fin (dd/MM/yy)
+	 * @see Projet
+	 * @see Task
+	 * @see Date
+	 */
 	private void deadline(String commandLine) {
 		int tempError = -1;
 		String[] subCommandRest = commandLine.split(" ", 2);
@@ -268,6 +368,14 @@ public final class Application implements Runnable {
 		}
 	}
 
+	/**
+	 * Affiche la liste des taches avec une date de fin égal au jour actuel.
+	 * 
+	 * @see Date
+	 * @see SimpleDateFormat
+	 * @see Projet
+	 * @see Task
+	 */
 	private void today() {
 		Date today = new Date();
 		String temp = sdf.format(today);
@@ -302,6 +410,15 @@ public final class Application implements Runnable {
 		}
 	}
 	
+	/**
+	 * Permet d'executer les commandes view suivant les mots rentrés par l'utilisateur.
+	 * 
+	 * @param commandLine
+	 * 					Suite de la commande tapé après view
+	 * @see Application#viewByProject
+	 * @see Application#viewByDate
+	 * @see Application#viewByDeadline
+	 */
 	private void view(String commandLine) {
 		String[] subcommandRest = commandLine.split(" ", 2);
 		String subcommand = subcommandRest[1];
@@ -316,6 +433,13 @@ public final class Application implements Runnable {
 		}
 	}
 
+	/**
+	 * Affiche la liste des taches rangées par dates.
+	 * 
+	 * @see Projet
+	 * @see Task
+	 * @see Date
+	 */
 	private void viewByDate() {
 		ArrayList<Date> dateTrouve = new ArrayList<Date>();
 		for (Projet projet : projects) {
@@ -349,6 +473,13 @@ public final class Application implements Runnable {
 		}
 	}
 
+	/**
+	 * Affiche les taches rangées par date de fin.
+	 * 
+	 * @see Projet
+	 * @see Task
+	 * @see Date
+	 */
 	private void viewByDeadline() {
 		ArrayList<Date> dateTrouve = new ArrayList<Date>();
 		for (Projet projet : projects) {
@@ -390,11 +521,22 @@ public final class Application implements Runnable {
 		}
 	}
 
+	/**
+	 * Gere les erreurs de commande de la part de l'utilisateur.
+	 * 
+	 * @param command
+	 * 				commande tape par l'utilisateur
+	 */
 	private void error(String command) {
 		out.printf("I don't know what the command \"%s\" is.", command);
 		out.println();
 	}
 
+	/**
+	 * Incremente l'identifiant des taches.
+	 * 
+	 * @return l'identifiant d'une tache + 1
+	 */
 	private long nextId() {
 		return ++lastId;
 	}
