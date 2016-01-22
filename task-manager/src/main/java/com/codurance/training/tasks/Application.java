@@ -100,6 +100,8 @@ public final class Application implements Runnable {
 		} else if (subcommand.equals("task")) {
 			String[] projectTask = subcommandRest[1].split(" ", 2);
 			addTask(projectTask[0], projectTask[1]);
+		} else {
+			out.println("Veuillez rentrer une commande existante");
 		}
 	}
 
@@ -167,7 +169,7 @@ public final class Application implements Runnable {
 
 	private void help() {
 		out.println("Commands:");
-		out.println("  viewByProject");
+		out.println("  view by project");
 		out.println("  add project <project name>");
 		out.println("  add task <project name> <task description>");
 		out.println("  delete <task ID>");
@@ -175,8 +177,8 @@ public final class Application implements Runnable {
 		out.println("  uncheck <task ID>");
 		out.println("  deadline <ID> <date> (dd/MM/yyyy");
 		out.println("  today");
-		out.println("  viewByDate");
-		out.println("  viewByDeadline");
+		out.println("  view by date");
+		out.println("  view by deadline");
 		out.println();
 	}
 
@@ -237,7 +239,7 @@ public final class Application implements Runnable {
 		} else if (subcommand.equals("deadline")) {
 			viewByDeadline();
 		} else {
-			out.println("Commande inconnue");
+			out.println("Veuillez rentrer une commande existante");
 		}
 	}
 
