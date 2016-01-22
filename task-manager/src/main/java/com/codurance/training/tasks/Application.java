@@ -52,8 +52,8 @@ public final class Application implements Runnable {
 		String[] commandRest = commandLine.split(" ", 2);
 		String command = commandRest[0];
 		switch (command) {
-		case "viewByProject":
-			viewByProject();
+		case "view":
+			view(commandRest[1]);
 			break;
 		case "add":
 			add(commandRest[1]);
@@ -75,12 +75,6 @@ public final class Application implements Runnable {
 			break;
 		case "today":
 			today();
-			break;
-		case "viewByDate":
-			viewByDate();
-			break;
-		case "viewByDeadline":
-			viewByDeadline();
 			break;
 		default:
 			error(command);
@@ -230,6 +224,20 @@ public final class Application implements Runnable {
 				out.print("    Pas de tâche à finir aujourd'hui pour ce projet.");
 			}
 			out.println();
+		}
+	}
+	
+	private void view(String commandLine) {
+		String[] subcommandRest = commandLine.split(" ", 2);
+		String subcommand = subcommandRest[1];
+		if (subcommand.equals("project")) {
+			viewByProject();
+		} else if (subcommand.equals("date")) {
+			viewByDate();
+		} else if (subcommand.equals("deadline")) {
+			viewByDeadline();
+		} else {
+			out.println("Commande inconnue");
 		}
 	}
 
