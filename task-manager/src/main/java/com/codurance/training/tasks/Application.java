@@ -125,7 +125,17 @@ public final class Application implements Runnable {
 			out.println();
 			return;
 		}
-		temp.addTask(new Task(nextId(), description, false));
+		Task tempTask = new Task(nextId(), description, false);
+		for (Projet projet : projects) {
+			for (Task task : projet.getTasks()) {
+				if (task.getDescription().equals(tempTask.getDescription())) {
+					if (task.isDone()) {
+						tempTask.setDone(true);
+					}
+				}
+			}
+		}
+		temp.addTask(tempTask);
 	}
 
 	private void deleteTask(int id) {
