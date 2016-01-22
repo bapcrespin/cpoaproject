@@ -1,5 +1,7 @@
 package com.codurance.training.tasks;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public final class Task {
@@ -8,13 +10,20 @@ public final class Task {
 	private boolean done;
 	private Date deadline;
 	private Date date;
+	private SimpleDateFormat sdf;
 
 	public Task(long id, String description, boolean done) {
 		this.id = id;
 		this.description = description;
 		this.done = done;
 		this.deadline = null;
-		this.date = new Date();
+		sdf = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			this.date = sdf.parse(sdf.format(new Date()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public long getId() {
@@ -38,7 +47,12 @@ public final class Task {
 	}
 
 	public void setDeadline(Date date) {
-		this.deadline = date;
+		try {
+			this.deadline = sdf.parse(sdf.format(date));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public Date getDate() {
