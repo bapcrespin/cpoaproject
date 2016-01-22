@@ -4,27 +4,41 @@ import java.util.ArrayList;
 
 public final class Projet {
 	private final String name ;
-	private ArrayList<Task> tasks;
+	private ArrayList<Task> tasksco;
+	private ArrayList<Task> tasksde;
 	
 	public Projet(String name){
 		this.name = name;
-		tasks = new ArrayList<Task>();
+		tasksco = new ArrayList<Task>();
+		tasksde = new ArrayList<Task>();
 	}
 	
 	public String getName(){
 		return this.name ;
 	}
 	
-	public ArrayList<Task> getTasks(){
-		return tasks;
+	public ArrayList<Task> getTasksco(){
+		return tasksco;
 	}
 	
-	public void addTask(Task tache){
-		tasks.add(tache);
+	public void addTaskco(Task tache){
+		tasksco.add(tache);
 	}
 	
-	public void deleteTask(Task task){
-		tasks.remove(task);
+	public void deleteTaskco(Task task){
+		tasksco.remove(task);
+	}
+	
+	public ArrayList<Task> getTasksde(){
+		return tasksde;
+	}
+	
+	public void addTaskde(Task tache){
+		tasksde.add(tache);
+	}
+	
+	public void deleteTaskde(Task task){
+		tasksde.remove(task);
 	}
 	
 }

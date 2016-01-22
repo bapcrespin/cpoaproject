@@ -85,8 +85,11 @@ public final class Application implements Runnable {
 	private void viewByProject() {
 		for (Projet projet : projects) {
 			out.println(projet.getName());
-			for (Task task : projet.getTasks()) {
-				out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId(), task.getDescription());
+			for (Task task : projet.getTasksco()) {
+				out.printf("    [%c] %d: %s%n", 'x', task.getId(), task.getDescription());
+			}
+			for (Task task : projet.getTasksde()) {
+				out.printf("    [%c] %d: %s%n", ' ', task.getId(), task.getDescription());
 			}
 			out.println();
 		}
@@ -123,23 +126,36 @@ public final class Application implements Runnable {
 		}
 		Task tempTask = new Task(nextId(), description, false);
 		for (Projet projet : projects) {
-			for (Task task : projet.getTasks()) {
+			for (Task task : projet.getTasksco()) {
 				if (task.getDescription().equals(tempTask.getDescription())) {
 					tempTask.setId(task.getId());
-					if (task.isDone()) {
-						tempTask.setDone(true);
-					}
+					tempTask.setDone(true);
+					temp.addTaskco(tempTask);
+					lastId--;
+					return;
+				}
+			}
+			for (Task task : projet.getTasksde()) {
+				if (task.getDescription().equals(tempTask.getDescription())) {
+					tempTask.setId(task.getId());
+					lastId--;
 				}
 			}
 		}
-		temp.addTask(tempTask);
+		temp.addTaskde(tempTask);
 	}
 
 	private void deleteTask(int id) {
 		for (Projet projet : projects) {
-			for (Task task : projet.getTasks()) {
+			for (Task task : projet.getTasksco()) {
 				if (task.getId() == id) {
-					projet.deleteTask(task);
+					projet.deleteTaskco(task);
+					return;
+				}
+			}
+			for (Task task : projet.getTasksde()) {
+				if (task.getId() == id) {
+					projet.deleteTaskde(task);
 					return;
 				}
 			}
@@ -147,31 +163,56 @@ public final class Application implements Runnable {
 	}
 
 	private void check(String idString) {
+		int temp = -1;
+		ArrayList<Task> toRemove = new ArrayList<Task>();
+		ArrayList<Task> toAdd = new ArrayList<Task>();
 		for (Projet projet : projects) {
-			for (Task task : projet.getTasks()) {
+			for (Task task : projet.getTasksde()) {
 				if (task.getId() == Long.parseLong(idString)) {
 					task.setDone(true);
+					toAdd.add(task);
+					toRemove.add(task);
+					temp = 1;
 				}
 			}
+			if (!toAdd.isEmpty() && !toRemove.isEmpty()) {
+				projet.getTasksco().addAll(toAdd);
+				projet.getTasksde().removeAll(toRemove);
+				toAdd.clear();
+				toRemove.clear();
+			}
 		}
+		if (temp == -1) {
+			out.printf("Could not find a task check with an ID of %s.", idString);
+			out.println();
+		}
+		
 	}
 
 	private void uncheck(String idString) {
-		setDone(idString, false);
-	}
-
-	private void setDone(String idString, boolean done) {
-		int id = Integer.parseInt(idString);
+		int temp = -1;
+		ArrayList<Task> toRemove = new ArrayList<Task>();
+		ArrayList<Task> toAdd = new ArrayList<Task>();
 		for (Projet projet : projects) {
-			for (Task task : projet.getTasks()) {
-				if (task.getId() == id) {
-					task.setDone(done);
-					return;
+			for (Task task : projet.getTasksco()) {
+				if (task.getId() == Long.parseLong(idString)) {
+					task.setDone(false);
+					toAdd.add(task);
+					toRemove.add(task);
+					temp = 1;
 				}
 			}
+			if (!toAdd.isEmpty() && !toRemove.isEmpty()) {
+				projet.getTasksde().addAll(toAdd);
+				projet.getTasksco().removeAll(toRemove);
+				toAdd.clear();
+				toRemove.clear();
+			}
 		}
-		out.printf("Could not find a task with an ID of %d.", id);
-		out.println();
+		if (temp == -1) {
+			out.printf("Could not find a task uncheck with an ID of %s.", idString);
+			out.println();
+		}
 	}
 
 	private void help() {
@@ -190,10 +231,11 @@ public final class Application implements Runnable {
 	}
 
 	private void deadline(String commandLine) {
+		int tempError = -1;
 		String[] subCommandRest = commandLine.split(" ", 2);
 		int id = Integer.parseInt(subCommandRest[0]);
 		for (Projet projet : projects) {
-			for (Task task : projet.getTasks()) {
+			for (Task task : projet.getTasksco()) {
 				if (task.getId() == id) {
 					Date temp = null;
 					try {
@@ -203,13 +245,27 @@ public final class Application implements Runnable {
 						e.printStackTrace();
 					}
 					task.setDeadline(temp);
-					// out.println(sdf.format(task.getDeadline()));
-					return;
+					tempError = 1;
+				}
+			}
+			for (Task task : projet.getTasksde()) {
+				if (task.getId() == id) {
+					Date temp = null;
+					try {
+						temp = sdf.parse(subCommandRest[1]);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					task.setDeadline(temp);
+					tempError = 1;
 				}
 			}
 		}
-		out.printf("Could not find a task with an ID of %d.", id);
-		out.println();
+		if (tempError == -1) {
+			out.printf("Could not find a task with an ID of %d.", id);
+			out.println();
+		}
 	}
 
 	private void today() {
@@ -219,11 +275,21 @@ public final class Application implements Runnable {
 		for (Projet projet : projects) {
 			out.println(projet.getName());
 			int cpt = 0;
-			for (Task task : projet.getTasks()) {
+			for (Task task : projet.getTasksco()) {
 				if (task.getDeadline() != null) {
 					temp2 = sdf.format(task.getDeadline());
 					if (temp.equals(temp2)) {
-						out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId(),
+						out.printf("    [%c] %d: %s%n", 'x', task.getId(),
+								task.getDescription());
+						cpt++;
+					}
+				}
+			}
+			for (Task task : projet.getTasksde()) {
+				if (task.getDeadline() != null) {
+					temp2 = sdf.format(task.getDeadline());
+					if (temp.equals(temp2)) {
+						out.printf("    [%c] %d: %s%n", ' ', task.getId(),
 								task.getDescription());
 						cpt++;
 					}
@@ -253,7 +319,12 @@ public final class Application implements Runnable {
 	private void viewByDate() {
 		ArrayList<Date> dateTrouve = new ArrayList<Date>();
 		for (Projet projet : projects) {
-			for (Task task : projet.getTasks()) {
+			for (Task task : projet.getTasksco()) {
+				if (!dateTrouve.contains(task.getDate())) {
+					dateTrouve.add(task.getDate());
+				}
+			}
+			for (Task task : projet.getTasksde()) {
 				if (!dateTrouve.contains(task.getDate())) {
 					dateTrouve.add(task.getDate());
 				}
@@ -262,9 +333,15 @@ public final class Application implements Runnable {
 		for (Date date : dateTrouve) {
 			out.println(sdf.format(date));
 			for (Projet projet : projects) {
-				for (Task task : projet.getTasks()) {
+				for (Task task : projet.getTasksco()) {
 					if (date.compareTo(task.getDate()) == 0) {
-						out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId(),
+						out.printf("    [%c] %d: %s%n", 'x', task.getId(),
+								task.getDescription());
+					}
+				}
+				for (Task task : projet.getTasksde()) {
+					if (date.compareTo(task.getDate()) == 0) {
+						out.printf("    [%c] %d: %s%n", ' ', task.getId(),
 								task.getDescription());
 					}
 				}
@@ -275,7 +352,14 @@ public final class Application implements Runnable {
 	private void viewByDeadline() {
 		ArrayList<Date> dateTrouve = new ArrayList<Date>();
 		for (Projet projet : projects) {
-			for (Task task : projet.getTasks()) {
+			for (Task task : projet.getTasksco()) {
+				if (task.getDeadline() != null) {
+					if (!dateTrouve.contains(task.getDeadline())) {
+						dateTrouve.add(task.getDeadline());
+					}
+				}
+			}
+			for (Task task : projet.getTasksde()) {
 				if (task.getDeadline() != null) {
 					if (!dateTrouve.contains(task.getDeadline())) {
 						dateTrouve.add(task.getDeadline());
@@ -286,10 +370,18 @@ public final class Application implements Runnable {
 		for (Date date : dateTrouve) {
 			out.println(sdf.format(date));
 			for (Projet projet : projects) {
-				for (Task task : projet.getTasks()) {
+				for (Task task : projet.getTasksco()) {
 					if (task.getDeadline() != null) {
 						if (date.compareTo(task.getDeadline()) == 0) {
-							out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId(),
+							out.printf("    [%c] %d: %s%n", 'x', task.getId(),
+									task.getDescription());
+						}
+					}
+				}
+				for (Task task : projet.getTasksde()) {
+					if (task.getDeadline() != null) {
+						if (date.compareTo(task.getDeadline()) == 0) {
+							out.printf("    [%c] %d: %s%n", ' ', task.getId(),
 									task.getDescription());
 						}
 					}
